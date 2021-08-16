@@ -5,13 +5,14 @@ import (
 
 	"github.com/abdulsalam01/go_gorm/config"
 	"github.com/abdulsalam01/go_gorm/routes"
+	"github.com/gorilla/mux"
 )
 
 func InitServer() {
 	config.InitEnvironment()
 	port := fmt.Sprintf(":%s", config.InitPort())
 	db, err := config.InitConnection()
-	wakeUpServer := routes.RouteServer{}
+	routeInit := routes.InitializeRoutes(db, &mux.Router{})
 
 	if err != nil {
 		panic(fmt.Sprintf("Connection refused %v", err))
@@ -21,7 +22,7 @@ func InitServer() {
 	fmt.Printf("Listening to port %s", port)
 
 	config.InitSchema(db)
-	wakeUpServer.Run(port)
+	routes.Run(port, routeInit.Router)
 }
 
 func RunServer() {

@@ -7,7 +7,6 @@ import (
 )
 
 type User struct {
-	gorm.Model
 	Id        uint   `gorm:"primaryKey;autoIncrement:true" form:"id" json:"id"`
 	Username  string `gorm:"NOT NULL" json:"username"`
 	Password  string `gorm:"NOT NULL" json:"password"`
