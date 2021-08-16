@@ -11,7 +11,6 @@ import (
 
 func InitializeRoutes(db *gorm.DB, router *mux.Router) *controllers.Server {
 	route := RouteServer(db, router)
-
 	// home routes
 	route.Router.HandleFunc("/", route.HelloApi).Methods("GET")
 
